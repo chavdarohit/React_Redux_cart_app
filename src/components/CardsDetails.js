@@ -1,8 +1,16 @@
 import React from "react";
 import { Table } from "react-bootstrap";
 import "../components/Style.css";
+import { useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
 
 const CardsDetails = () => {
+  const { id } = useParams();
+  // console.log(id);
+
+  const getData = useSelector((state) => state.cartReducer.carts);
+  console.log("get data in card details", getData);
+
   return (
     <div className="container mt-2">
       <h2 className="text-center">Items Details Page</h2>
@@ -39,7 +47,7 @@ const CardsDetails = () => {
                         backgroundColor: "green",
                         color: "#fff",
                         padding: "2px 5px",
-                        borderRadius: "5px",
+                        borderRadius: "5px"
                       }}
                     >
                       3.5 ★

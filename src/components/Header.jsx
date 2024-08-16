@@ -1,16 +1,16 @@
 /* eslint-disable react/style-prop-object */
 import React, { useState } from "react";
-import { Navbar, Container, Nav } from "react-bootstrap";
+import { Navbar, Container, Nav, NavLink } from "react-bootstrap";
 import Badge from "@mui/material/Badge";
 import { MaterialUISwitch } from "./MaterialUiSwitch";
 import Menu from "@mui/material/Menu";
 import { useSelector } from "react-redux";
-import { Table } from "@mui/material";
 import "../components/Style.css";
+import { Link } from "react-router-dom";
 
 const Header = () => {
   const getData = useSelector((state) => state.cartReducer.carts);
-  console.log("getData", getData);
+  console.log("getData main page", getData);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -71,30 +71,81 @@ const Header = () => {
           {
             // if there is items in the cart then show the items in the cart
             getData.length ? (
-              <div
-                className="grid-container card-details"
-                style={{ width: "24rem", cursor: "pointer" }}
-              >
-                {getData.map((item) => {
-                  return (
-                    <>
-                      <div>
-                        <img
-                          src={item.imgdata}
-                          alt={item.rname}
-                          style={{ width: "5rem", height: "5rem" }}
-                        />
-                      </div>
-                      <div>
-                        <p>{item.rname}</p>
-                        <p>Price: {item.price}₹</p>
-                        <p>Quantity: {item.qnty}</p>
-                      </div>
-                      <div> remove </div>
-                    </>
-                  );
-                })}
-              </div>
+              <>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    padding: "0 15px",
+                    borderBottom: "2px solid #000"
+                  }}
+                >
+                  <h4>Photos</h4>
+                  <h4 style={{ marginRight: "90px" }}>Restaurant</h4>
+                </div>
+                <div
+                  className="grid-container card-details"
+                  style={{
+                    width: "23rem",
+                    cursor: "pointer"
+                  }}
+                >
+                  {getData.map((item) => {
+                    return (
+                      <>
+                        <div>
+                          <Link to={`/cart/${item.id}`}>
+                            <img
+                              src={item.imgdata}
+                              alt={item.rname}
+                              style={{
+                                width: "7rem",
+                                height: "6rem",
+                                padding: "0 0 0 15px"
+                              }}
+                            />
+                          </Link>
+                        </div>
+                        <div>
+                          <p>{item.rname}</p>
+                          <p>Price: {item.price}₹</p>
+                          <p>Quantity: {item.qnty}</p>
+
+                          <p class="smalltrash">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              width="50"
+                              height="50"
+                              viewBox="0 0 72 72"
+                            >
+                              <path d="M 32 13 C 30.895 13 30 13.895 30 15 L 30 16 L 17 16 C 14.791 16 13 17.791 13 20 C 13 21.973645 14.432361 23.602634 16.3125 23.929688 L 18.707031 52.664062 C 19.053031 56.811062 22.520641 60 26.681641 60 L 45.318359 60 C 49.479359 60 52.945969 56.811062 53.292969 52.664062 L 55.6875 23.929688 C 57.567639 23.602634 59 21.973645 59 20 C 59 17.791 57.209 16 55 16 L 42 16 L 42 15 C 42 13.895 41.105 13 40 13 L 32 13 z M 24.347656 24 L 47.652344 24 L 45.396484 51.082031 C 45.352484 51.600031 44.918438 52 44.398438 52 L 27.601562 52 C 27.081562 52 26.647469 51.600031 26.605469 51.082031 L 24.347656 24 z"></path>
+                            </svg>
+                          </p>
+                        </div>
+
+                        <div>
+                          <p class="largetrash">
+                            <svg
+                              xmlns="http://www.w3.org/2000/svg"
+                              x="0px"
+                              y="0px"
+                              width="50"
+                              height="50"
+                              viewBox="0 0 72 72"
+                            >
+                              <path d="M 32 13 C 30.895 13 30 13.895 30 15 L 30 16 L 17 16 C 14.791 16 13 17.791 13 20 C 13 21.973645 14.432361 23.602634 16.3125 23.929688 L 18.707031 52.664062 C 19.053031 56.811062 22.520641 60 26.681641 60 L 45.318359 60 C 49.479359 60 52.945969 56.811062 53.292969 52.664062 L 55.6875 23.929688 C 57.567639 23.602634 59 21.973645 59 20 C 59 17.791 57.209 16 55 16 L 42 16 L 42 15 C 42 13.895 41.105 13 40 13 L 32 13 z M 24.347656 24 L 47.652344 24 L 45.396484 51.082031 C 45.352484 51.600031 44.918438 52 44.398438 52 L 27.601562 52 C 27.081562 52 26.647469 51.600031 26.605469 51.082031 L 24.347656 24 z"></path>
+                            </svg>
+                          </p>
+                        </div>
+                      </>
+                    );
+                  })}
+                </div>
+                <hr></hr>
+                <p className="text-center">Total: ₹ 300</p>
+              </>
             ) : (
               // if there is nothing in the cart then show the cart is empty
               <div

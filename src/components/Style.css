@@ -198,9 +198,7 @@
   transition-duration: 0.5s;
   transform: rotate(160deg);
 }
-p {
-  line-height: 10px;
-}
+
 .grid-container {
   display: grid;
   gap: 10px;

@@ -94,7 +94,7 @@ const Header = () => {
                     return (
                       <>
                         <div>
-                          <Link to={`/cart/${item.id}`}>
+                          <Link to={`/cart/${item.id}`} onClick={handleClose}>
                             <img
                               src={item.imgdata}
                               alt={item.rname}

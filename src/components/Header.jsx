@@ -4,13 +4,19 @@ import { Navbar, Container, Nav, NavLink } from "react-bootstrap";
 import Badge from "@mui/material/Badge";
 import { MaterialUISwitch } from "./MaterialUiSwitch";
 import Menu from "@mui/material/Menu";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import "../components/Style.css";
 import { Link } from "react-router-dom";
+import { REMOVE } from "../redux/actions/actions";
 
 const Header = () => {
   const getData = useSelector((state) => state.cartReducer.carts);
   console.log("getData main page", getData);
+
+  const dispatch = useDispatch();
+  const remove = (id) => {
+    dispatch(REMOVE(id));
+  };
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -111,7 +117,7 @@ const Header = () => {
                           <p>Price: {item.price}₹</p>
                           <p>Quantity: {item.qnty}</p>
 
-                          <p class="smalltrash">
+                          <p class="smalltrash" onClick={() => remove(item.id)}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               x="0px"
@@ -126,7 +132,7 @@ const Header = () => {
                         </div>
 
                         <div>
-                          <p class="largetrash">
+                          <p class="largetrash" onClick={() => remove(item.id)}>
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               x="0px"

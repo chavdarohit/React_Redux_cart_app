@@ -1,5 +1,5 @@
 /* eslint-disable react/style-prop-object */
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Navbar, Container, Nav, NavLink } from "react-bootstrap";
 import Badge from "@mui/material/Badge";
 import { MaterialUISwitch } from "./MaterialUiSwitch";
@@ -10,6 +10,8 @@ import { Link } from "react-router-dom";
 import { REMOVE } from "../redux/actions/actions";
 
 const Header = () => {
+  const [price, setPrice] = useState(0);
+  console.log("price", price);
   const getData = useSelector((state) => state.cartReducer.carts);
   console.log("getData main page", getData);
 
@@ -17,6 +19,18 @@ const Header = () => {
   const remove = (id) => {
     dispatch(REMOVE(id));
   };
+
+  const total = () => {
+    let price = 0;
+    getData.map((ele) => {
+      price += ele.price;
+    });
+    setPrice(price);
+  };
+
+  useEffect(() => {
+    total();
+  }, [total]);
 
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
@@ -150,7 +164,7 @@ const Header = () => {
                   })}
                 </div>
                 <hr></hr>
-                <p className="text-center">Total: ₹ 300</p>
+                <p className="text-center">Total: ₹ {price}</p>
               </>
             ) : (
               // if there is nothing in the cart then show the cart is empty

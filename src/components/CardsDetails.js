@@ -1,14 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { Table } from "react-bootstrap";
 import "../components/Style.css";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import { REMOVE } from "../redux/actions/actions";
 
 const CardsDetails = () => {
   const [data, setData] = useState([]);
 
   const { id } = useParams();
   // console.log(id);
+
+  const dispatch = useDispatch();
+
+  const remove = (id) => {
+    dispatch(REMOVE(id));
+  };
+
+  const history = useNavigate();
 
   const getData = useSelector((state) => state.cartReducer.carts);
   // console.log("get data in card details", getData);
@@ -50,6 +59,15 @@ const CardsDetails = () => {
                         <p>
                           <strong>Total </strong>:₹ 300
                         </p>
+                        <div
+                          className="mt-5 d-flex justify-content-center align-item-center"
+                          style={{
+                            width: 100,
+                            cursor: "pointer",
+                            background: "#ddd",
+                            color: "#111"
+                          }}
+                        ></div>
                       </td>
                       <td>
                         <p>
@@ -72,7 +90,13 @@ const CardsDetails = () => {
                         <p className="d-flex align-items-center">
                           <strong>Remove :</strong>
                           <span style={{ padding: "10px" }}>
-                            <button class="remove">
+                            <button
+                              class="remove"
+                              onClick={() => {
+                                remove(ele.id);
+                                history("/");
+                              }}
+                            >
                               <svg
                                 xmlns="http://www.w3.org/2000/svg"
                                 fill="none"

@@ -3245,8 +3245,6 @@ const json = {
   1500650: "2024-07-31 0:11:57",
   1500878: "2024-07-31 2:40:51"
 };
-console.log("total data", data.length);
-console.log("json converted", Object.keys(json).length);
 const obj = {};
 const jsonArray = Object.keys(json);
 jsonArray.map((item) => {
@@ -3255,4 +3253,3 @@ jsonArray.map((item) => {
   }
 });
 console.dir({ obj }, { depth: null });
-console.log("after converted", Object.keys(obj).length);

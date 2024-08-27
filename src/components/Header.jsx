@@ -11,9 +11,7 @@ import { REMOVE } from "../redux/actions/actions";
 
 const Header = () => {
   const [price, setPrice] = useState(0);
-  console.log("price", price);
   const getData = useSelector((state) => state.cartReducer.carts);
-  console.log("getData in header section page", getData);
 
   const dispatch = useDispatch();
   const remove = (id) => {

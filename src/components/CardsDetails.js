@@ -9,7 +9,6 @@ const CardsDetails = () => {
   const [data, setData] = useState([]);
 
   const { id } = useParams();
-  // console.log(id);
 
   //add Data
   const sendToCart = (item) => {
@@ -28,7 +27,6 @@ const CardsDetails = () => {
   const history = useNavigate();
 
   const getData = useSelector((state) => state.cartReducer.carts);
-  console.log("get data in card details", getData);
 
   const compare = () => {
     let compareData = getData.filter((e) => {

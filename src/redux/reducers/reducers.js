@@ -27,7 +27,6 @@ export const cartReducer = (state = INIT_STATE, action) => {
       );
       if (state.carts[itemIndexToRemove].qnty >= 1) {
         const delItem = (state.carts[itemIndexToRemove].qnty -= 1);
-        console.log(...state.carts, delItem);
         return {
           ...state,
           carts: [...state.carts]

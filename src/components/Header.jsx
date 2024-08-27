@@ -7,7 +7,7 @@ import Menu from "@mui/material/Menu";
 import { useDispatch, useSelector } from "react-redux";
 import "../components/Style.css";
 import { Link } from "react-router-dom";
-import { REMOVE } from "../redux/actions/actions";
+import { REMOVE, toggleTheme } from "../redux/actions/actions";
 
 const Header = () => {
   const [price, setPrice] = useState(0);
@@ -38,6 +38,7 @@ const Header = () => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const darkMode = useSelector((state) => state.theme.darkMode);
   return (
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ height: "60px" }}>
@@ -78,7 +79,10 @@ const Header = () => {
               </svg>
             </button>
           </Badge>
-          <MaterialUISwitch sx={{ m: 1 }} />
+          <MaterialUISwitch
+            checked={darkMode}
+            onChange={() => dispatch(toggleTheme())}
+          />
         </Container>
 
         <Menu

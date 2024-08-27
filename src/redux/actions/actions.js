@@ -20,3 +20,8 @@ export const REMOVE_INDIVIDUAL = (item) => {
     payload: item
   };
 };
+// changing theme
+// actions.js
+export const toggleTheme = () => ({
+  type: "TOGGLE_THEME"
+});

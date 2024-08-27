@@ -208,3 +208,8 @@
 .grid-container > div {
   padding: 20px 0;
 }
+
+#home {
+  text-decoration: none;
+  color: inherit;
+}

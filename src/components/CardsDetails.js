@@ -3,7 +3,7 @@ import { Table } from "react-bootstrap";
 import "../components/Style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
-import { REMOVE } from "../redux/actions/actions";
+import { ADD, REMOVE, REMOVE_INDIVIDUAL } from "../redux/actions/actions";
 
 const CardsDetails = () => {
   const [data, setData] = useState([]);
@@ -11,16 +11,24 @@ const CardsDetails = () => {
   const { id } = useParams();
   // console.log(id);
 
+  //add Data
+  const sendToCart = (item) => {
+    dispatch(ADD(item));
+  };
   const dispatch = useDispatch();
 
   const remove = (id) => {
     dispatch(REMOVE(id));
   };
 
+  const removeOne = (item) => {
+    dispatch(REMOVE_INDIVIDUAL(item));
+  };
+
   const history = useNavigate();
 
   const getData = useSelector((state) => state.cartReducer.carts);
-  // console.log("get data in card details", getData);
+  console.log("get data in card details", getData);
 
   const compare = () => {
     let compareData = getData.filter((e) => {
@@ -57,17 +65,40 @@ const CardsDetails = () => {
                           <strong>Dishes </strong>:{ele.address}
                         </p>
                         <p>
-                          <strong>Total </strong>:₹ 300
+                          <strong>Total </strong>:₹ {ele.price * ele.qnty}
                         </p>
                         <div
-                          className="mt-5 d-flex justify-content-center align-item-center"
+                          className="mt-5 d-flex justify-content-between align-item-center"
                           style={{
                             width: 100,
                             cursor: "pointer",
                             background: "#ddd",
                             color: "#111"
                           }}
-                        ></div>
+                        >
+                          <span
+                            style={{ fontSize: 24 }}
+                            onClick={
+                              ele.qnty <= 1
+                                ? () => {
+                                    remove(ele.id);
+                                    history("/");
+                                  }
+                                : () => {
+                                    removeOne(ele);
+                                  }
+                            }
+                          >
+                            -
+                          </span>
+                          <span style={{ fontSize: 22 }}>{ele.qnty}</span>
+                          <span
+                            style={{ fontSize: 24 }}
+                            onClick={() => sendToCart(ele)}
+                          >
+                            +
+                          </span>
+                        </div>
                       </td>
                       <td>
                         <p>

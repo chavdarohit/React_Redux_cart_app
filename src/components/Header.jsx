@@ -13,7 +13,7 @@ const Header = () => {
   const [price, setPrice] = useState(0);
   console.log("price", price);
   const getData = useSelector((state) => state.cartReducer.carts);
-  console.log("getData main page", getData);
+  console.log("getData in header section page", getData);
 
   const dispatch = useDispatch();
   const remove = (id) => {
@@ -23,7 +23,7 @@ const Header = () => {
   const total = () => {
     let price = 0;
     getData.map((ele) => {
-      price += ele.price;
+      price += ele.price * ele.qnty;
     });
     setPrice(price);
   };
@@ -44,11 +44,15 @@ const Header = () => {
     <>
       <Navbar bg="dark" data-bs-theme="dark" style={{ height: "60px" }}>
         <Container>
-          <Navbar.Brand href="/">Add To Cart</Navbar.Brand>
+          <Navbar.Brand>
+            <Link id="home" to="/">
+              Add To Cart
+            </Link>
+          </Navbar.Brand>
           <Nav className="me-auto">
-            <Nav.Link href="/" className="text-light">
+            <Link id="home" to="/" className="text-light">
               Home
-            </Nav.Link>
+            </Link>
           </Nav>
 
           <Badge
